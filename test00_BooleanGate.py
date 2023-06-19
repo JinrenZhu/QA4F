@@ -15,5 +15,5 @@ Q = {('x', 'x'): -1, ('x', 'z'): 2, ('z', 'x'): 0, ('z', 'z'): -1}
 
 # %% Simulated Annealing
 sampleset = SimulatedAnnealingSampler().sample_qubo(Q, num_reads=5000)
-print(len(sampleset))
+print(sampleset.lowest())
 

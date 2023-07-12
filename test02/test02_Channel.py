@@ -1,5 +1,6 @@
-# This script requires Sympy package, which is not pre-installed in default Leap IDE
-# use "pip install sympy" in the terminal to install the package through pip
+# 1. This script requires Sympy package, which is not pre-installed in default Leap IDE.
+#    Use "pip install sympy" in the terminal to install the package through pip.
+# 2. The root directory should be 'test02', not QA4F.
 
 # %% prelim
 import numpy as np

@@ -1,4 +1,5 @@
 # This script requires Sympy package, which is not pre-installed in default Leap IDE
+# use "pip install sympy" in the terminal to install the package through pip
 
 # %% prelim
 import numpy as np
@@ -9,6 +10,7 @@ import matplotlib.pyplot as plt
 
 from dimod import BinaryQuadraticModel
 from dwave.samplers import SimulatedAnnealingSampler
+from dwave.system import DWaveSampler, EmbeddingComposite
 
 # %% observation: Lee & Moser 2015 Re_\tau = 180
 LM_path = './'
@@ -31,7 +33,7 @@ d2Udy2 = dUdy_interp.derivative(1)
 n_real = 12
 n_encode = 10
 n_bin = n_real * n_encode
-range_encode = 30
+range_encode = 20.0
 
 # variable name expression
 var_bin = np.chararray([n_real, n_encode], itemsize=9)
@@ -108,7 +110,7 @@ def nu_t_FEM(y_loc, nu_t_full):
 # %% Object functional
 tic = perf_counter()
 # flags
-smooth_flag = False
+smooth_flag = True
 wbc_flg = False
 
 # Observation
@@ -163,13 +165,22 @@ bias_linear = diag_quad + diag_linear
 toc = perf_counter()
 print('QUBO coefficients: done ... ' + str(toc-tic) + ' sec.s')
 
-# %% sampling
+# %% generate BQM
 bqm_diffusion = BinaryQuadraticModel('BINARY')
 bqm_diffusion.add_linear_from_array(bias_linear)
 bqm_diffusion.add_quadratic_from_dense(cov_matrix_off)
 
-# random sampler
+# %% random sampler
 sampleset_SA = SimulatedAnnealingSampler().sample(bqm_diffusion, num_reads=10000)
 print(sampleset_SA.first)
 print(len(sampleset_SA.lowest())/len(sampleset_SA))
 np.save('SA_samples', sampleset_SA.record)
+np.save('SA_samples_lowest', sampleset_SA.lowest().record)
+
+# %% quantum annealing
+samplerQA = EmbeddingComposite(DWaveSampler())
+sampleset_QA = samplerQA.sample(bqm_diffusion, num_reads=2000, label='QFI - Channel')
+print(sampleset_QA.first)
+print(len(sampleset_QA.lowest())/len(sampleset_QA))
+np.save('QA_samples', sampleset_QA.record)
+np.save('QA_samples_lowest', sampleset_QA.lowest().record)

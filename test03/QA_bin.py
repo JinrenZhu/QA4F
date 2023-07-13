@@ -9,14 +9,14 @@ from dwave.system import DWaveSampler, EmbeddingComposite
 # %% parameters
 # 12 real varialbes * 10 binary encoding = 120 variables
 n_real = 12
-n_encode = 6
+n_encode = 4
 n_bin = n_real * n_encode
 range_encode = 20
 # FEM
 nel = 6
 nen = nel * 2 + 1
 # Sampler
-QA_n_reads = 2000
+QA_n_reads = 4000
 QA_sample_rtol = 1.0e-4
 # suffix
 sffx_1 = str(n_real).zfill(2)

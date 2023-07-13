@@ -41,5 +41,5 @@ print(len(sampleset_QA.lowest(rtol=QA_sample_rtol))/len(sampleset_QA))
 
 np.save('QA_samples_' + sffx_1 + '_' + sffx_2 + '_' + sffx_3 + '.npy',
         sampleset_QA.record)
-np.save('QA_samples_lowest' + sffx_1 + '_' + sffx_2 + '_' + sffx_3 + '.npy',
+np.save('QA_samples_lowest_' + sffx_1 + '_' + sffx_2 + '_' + sffx_3 + '.npy',
         sampleset_QA.lowest(rtol=QA_sample_rtol).record)

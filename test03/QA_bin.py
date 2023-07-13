@@ -1,3 +1,5 @@
+# Make sure the working path in the terminal is 'test03'.
+
 # %% prelim
 import numpy as np
 

@@ -6,6 +6,7 @@ from sympy import symbols, simplify, latex, expand, diff
 from dimod import BinaryQuadraticModel, ExactSolver, generators
 from dwave.samplers import SimulatedAnnealingSampler
 from dwave.system import DWaveSampler, EmbeddingComposite
+from dwave.inspector import show
 
 # %% functional
 # binary variables
@@ -85,7 +86,8 @@ np.save('SA_samples', sampleset_SA.record)
 
 # %% quantum annealing
 samplerQA = EmbeddingComposite(DWaveSampler())
-sampleset_QA = samplerQA.sample(bqm_diffusion, num_reads=2000, label='QFI - diffusion')
+sampleset_QA = samplerQA.sample(bqm_diffusion, num_reads=500, label='QFI - diffusion')
+show(sampleset_QA) 
 print(sampleset_QA.first)
 print(len(sampleset_QA.lowest())/len(sampleset_QA))
 np.save('QA_samples', sampleset_QA.record)

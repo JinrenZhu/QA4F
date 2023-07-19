@@ -79,15 +79,15 @@ bqm_diffusion.add_linear_from_array(bias_linear)
 bqm_diffusion.add_quadratic_from_dense(cov_matrix_off)
 
 # %% sampling
-sampleset_SA = SimulatedAnnealingSampler().sample(bqm_diffusion, num_reads=4000)
-print(sampleset_SA.first)
-print(len(sampleset_SA.lowest())/len(sampleset_SA))
-np.save('SA_samples', sampleset_SA.record)
+# sampleset_SA = SimulatedAnnealingSampler().sample(bqm_diffusion, num_reads=4000)
+# print(sampleset_SA.first)
+# print(len(sampleset_SA.lowest())/len(sampleset_SA))
+# np.save('SA_samples', sampleset_SA.record)
 
 # %% quantum annealing
 samplerQA = EmbeddingComposite(DWaveSampler())
-sampleset_QA = samplerQA.sample(bqm_diffusion, num_reads=500, label='QFI - diffusion')
+sampleset_QA = samplerQA.sample(bqm_diffusion, num_reads=2000, chain_strength=50, label='Diffusion- chain')
 show(sampleset_QA) 
 print(sampleset_QA.first)
 print(len(sampleset_QA.lowest())/len(sampleset_QA))
-np.save('QA_samples', sampleset_QA.record)
+np.save('QA_samples_chain_50', sampleset_QA.record)

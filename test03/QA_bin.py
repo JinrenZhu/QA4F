@@ -17,9 +17,9 @@ range_encode = 20
 nel = 6
 nen = nel * 2 + 1
 # Sampler
-QA_n_reads = 2000
+QA_n_reads = 4000
 QA_sample_rtol = 1.0e-4
-QA_chain_strength = 1000
+QA_chain_strength = 500
 # suffix
 sffx_1 = str(n_real).zfill(2)
 sffx_2 = str(n_encode).zfill(2)

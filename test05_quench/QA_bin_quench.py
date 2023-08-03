@@ -26,7 +26,6 @@ sffx_1 = str(n_real).zfill(2)
 sffx_2 = str(n_encode).zfill(2)
 sffx_3 = str(QA_n_reads).zfill(5)
 sffx_4 = str(QA_chain_strength).zfill(4)
-sffx_5 = str(2).zfill(2)
 
 # %% load QUBO coefficient
 cov_matrix_off = np.load('cov_mat_off_' + sffx_1 + '_' + sffx_2 + '.npy')
@@ -39,14 +38,18 @@ bqm_channel.add_linear_from_array(bias_linear)
 bqm_channel.add_quadratic_from_dense(cov_matrix_off)
 
 # define anneal schedule
-# 01
+# 01 just try -100.9374596991726
 # 0 ~ 20: slow evolving
 # 20 ~ 22: quench
 # quench_schedule=[[0.0, 0.0], [20.0, 0.5], [22.0, 1.0]]
-# 02
+# 02 steeper slope -102.01021573123536
 # 0 ~ 20: slow evolving
 # 20 ~ 20.5: quench
-quench_schedule=[[0.0, 0.0], [20.0, 0.5], [20.5, 1.0]]
+# 03 longer time steeper slope
+# 0 ~ 100: slow evolving 
+# 100 ~ 100.5: quench:
+sffx_5 = str(3).zfill(2)
+quench_schedule=[[0.0, 0.0], [100.0, 0.5], [100.5, 1.0]]
 
 samplerQA = EmbeddingComposite(DWaveSampler())
 sampleset_QA = samplerQA.sample(bqm_channel,

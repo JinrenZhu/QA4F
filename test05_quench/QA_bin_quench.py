@@ -42,12 +42,17 @@ bqm_channel.add_quadratic_from_dense(cov_matrix_off)
 # 0 ~ 20: slow evolving
 # 20 ~ 22: quench
 # quench_schedule=[[0.0, 0.0], [20.0, 0.5], [22.0, 1.0]]
+
 # 02 steeper slope -102.01021573123536
 # 0 ~ 20: slow evolving
 # 20 ~ 20.5: quench
-# 03 longer time steeper slope
+# quench_schedule=[[0.0, 0.0], [20.0, 0.5], [20.5, 1.0]]
+
+# 03 longer time steeper slope -96.14760387870584
 # 0 ~ 100: slow evolving 
 # 100 ~ 100.5: quench:
+# quench_schedule=[[0.0, 0.0], [100.0, 0.5], [100.5, 1.0]]
+
 sffx_5 = str(3).zfill(2)
 quench_schedule=[[0.0, 0.0], [100.0, 0.5], [100.5, 1.0]]
 

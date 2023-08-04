@@ -48,17 +48,33 @@ bqm_channel = BinaryQuadraticModel('BINARY')
 bqm_channel.add_linear_from_array(bias_linear)
 bqm_channel.add_quadratic_from_dense(cov_matrix_off)
 
+max_slope = 2.0
 
+# test 01: energy=-100.6250095632296
+# sffx_5 = str(1).zfill(2)
+# reverse_schedule = make_reverse_anneal_schedule(s_target=0.45, hold_time=100, ramp_up_slope=max_slope)
 
-sffx_5 = str(2).zfill(2)
-pause_schedule=[[0.0, 0.0], [8.0, 0.4], [108.0, 0.4], [120.0, 1.0]]
+# test 02: energy=-102.64252721790241
+# sffx_5 = str(2).zfill(2)
+# reverse_schedule = make_reverse_anneal_schedule(s_target=0.45, hold_time=100, ramp_up_slope=0.5)
+
+# test 03: energy=-97.348124881391
+# sffx_5 = str(3).zfill(2)
+# reverse_schedule = make_reverse_anneal_schedule(s_target=0.45, hold_time=100, ramp_up_slope=0.1)
+
+# test 04: energy=-99.58741717472826
+# sffx_5 = str(4).zfill(2)
+# reverse_schedule = make_reverse_anneal_schedule(s_target=0.45, hold_time=100, ramp_up_slope=0.5)
+# reinitialize_state=False
+
+reverse_anneal_params = dict(anneal_schedule=reverse_schedule, initial_state=QA_forward, reinitialize_state=False)
 
 samplerQA = EmbeddingComposite(DWaveSampler())
 sampleset_QA = samplerQA.sample(bqm_channel,
                                 num_reads=QA_n_reads,
-                                anneal_schedule=pause_schedule,
                                 chain_strength=QA_chain_strength,
-                                label='Channel-Pause')
+                                label='Channel-Reverse',
+                                **reverse_anneal_params)
 
 show(sampleset_QA) 
 
@@ -66,5 +82,5 @@ print(sampleset_QA.first)
 print(len(sampleset_QA.lowest(rtol=QA_sample_rtol))/len(sampleset_QA))
 
 sffx_all = sffx_1 + '_' + sffx_2 + '_' + sffx_3 + '_' + sffx_4 + '_' + sffx_5 + '.npy'
-np.save('QA_samples_pause' + sffx_all, sampleset_QA.record)
+np.save('QA_samples_reverse_' + sffx_all, sampleset_QA.record)
 # np.save('QA_samples_lowest_' + sffx_all, sampleset_QA.lowest(rtol=QA_sample_rtol).record)

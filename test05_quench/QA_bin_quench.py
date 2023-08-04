@@ -53,8 +53,13 @@ bqm_channel.add_quadratic_from_dense(cov_matrix_off)
 # 100 ~ 100.5: quench:
 # quench_schedule=[[0.0, 0.0], [100.0, 0.5], [100.5, 1.0]]
 
-sffx_5 = str(3).zfill(2)
-quench_schedule=[[0.0, 0.0], [100.0, 0.5], [100.5, 1.0]]
+# 04 steeper slope: energy=-97.71853035655805
+# 0 ~ 24: slow evolving
+# 24 ~ 24.5: quench
+# quench_schedule=[[0.0, 0.0], [24.0, 0.6], [24.5, 1.0]]
+
+sffx_5 = str(4).zfill(2)
+quench_schedule=[[0.0, 0.0], [24.0, 0.6], [24.5, 1.0]]
 
 samplerQA = EmbeddingComposite(DWaveSampler())
 sampleset_QA = samplerQA.sample(bqm_channel,

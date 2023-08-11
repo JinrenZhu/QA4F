@@ -65,12 +65,20 @@ max_slope = 2.0
 # reverse_schedule = make_reverse_anneal_schedule(s_target=0.6, hold_time=200, ramp_up_slope=max_slope)
 # reinit_flag = True
 
-# test 03, energy=-80.99657558377189
+# test 03, energy=-81.87086958722092
 sffx_5 = str(3).zfill(2)
 reverse_schedule = make_reverse_anneal_schedule(s_target=0.5, hold_time=200, ramp_up_slope=max_slope)
 reinit_flag = True
 
-reverse_anneal_params = dict(anneal_schedule=reverse_schedule, initial_state=QA_forward, reinitialize_state=reinit_flag)
+# test 04, energy=-78.58150128228807
+sffx_5 = str(4).zfill(2)
+reverse_schedule = make_reverse_anneal_schedule(s_target=0.5, hold_time=20, ramp_up_slope=max_slope)
+reinit_flag = True
+
+reverse_anneal_params = dict(anneal_schedule=reverse_schedule,
+                             initial_state=QA_forward,
+                             reinitialize_state=reinit_flag,
+                             answer_mode='histogram')
 
 samplerQA = EmbeddingComposite(DWaveSampler())
 sampleset_QA = samplerQA.sample(bqm_channel,

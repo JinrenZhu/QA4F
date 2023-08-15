@@ -19,7 +19,7 @@ n_bin = n_real * n_encode
 QA_n_reads = 2000
 QA_sample_rtol = 1.0e-4
 QA_chain_strength = 100
-QA_time = 20
+QA_time = 200
 # suffix
 sffx_1 = str(n_real).zfill(2)
 sffx_2 = str(n_encode).zfill(2)
